@@ -1,0 +1,32 @@
+SHELL = /bin/bash
+CC = gcc
+CFLAGS = -g -ggdb -x objective-c -c -m32
+LDFLAGS = -g -ggdb -m32 -lobjc
+srcdir = src
+
+PROG = fraction
+HDRS = Fraction.h
+SRCS = main.m Fraction.m
+
+# Object files (.o) have the same name as corresponding source (.m) files
+OBJS = $(SRCS:.m=.o)
+
+# Build the fraction executable from the object files
+$(PROG) : $(OBJS)
+	$(CC) $(OBJS)  -o $(PROG) $(LDFLAGS)
+
+# Compile source to create the object files
+# use the default actions to compile
+main.o : $(srcdir)/main.m $(srcdir)/Fraction.h $(srcdir)/Fraction.m
+	$(CC) $(CFLAGS) $(srcdir)/Fraction.h $(srcdir)/Fraction.m $(srcdir)/main.m
+
+Fraction.o : $(srcdir)/Fraction.h $(srcdir)/Fraction.m 
+	$(CC) $(CFLAGS) $(srcdir)/Fraction.h $(srcdir)/Fraction.m
+
+# Remove compilation and debugging files
+clean :
+	rm -f core $(PROG) $(OBJS)
+
+
+
+

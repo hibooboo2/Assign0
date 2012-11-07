@@ -1,0 +1,8 @@
+#! /bin/bash
+# to compile with a single gcc command uncomment the line below.
+#gcc -x objective-c -m32 -enable-auto-import -L/GNUstep/System/Library/Libraries -I/GNUstep/System/Library/Headers -o fraction.exe src/Fraction.m src/Fraction.h src/main.m -llibgnustep-base -lobjc 
+# to compile in two steps (for debugging) use the lines below. First compiles
+# only to produce the .o (object) files. The second links the resulting
+# object files to create the executable.
+gcc -x objective-c -g -ggdb -c -I/GNUstep/System/Library/Headers src/Fraction.h src/Fraction.m src/main.m
+gcc -g -ggdb main.o Fraction.o -m32 -enable-auto-import -L/GNUstep/System/Library/Libraries -o fraction.exe -llibgnustep-base -lobjc

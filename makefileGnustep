@@ -1,0 +1,32 @@
+SHELL = /bin/bash
+CC = gcc
+CFLAGS = -g -ggdb -x objective-c -c -I/GNUstep/System/Library/Headers
+LDFLAGS = -g -ggdb -m32 -enable-auto-import -L/GNUstep/System/Library/Libraries -llibgnustep-base -lobjc
+srcdir = src
+
+PROG = MyRectangle.exe
+HDRS = MyRectangle.h
+SRCS = main.m MyRectangle.m
+
+# Object files (.o) have the same name as corresponding source (.m) files
+OBJS = $(SRCS:.m=.o)
+
+# Build the MyRectangle executable from the object files
+$(PROG) : $(OBJS)
+	$(CC) $(OBJS)  -o $(PROG) $(LDFLAGS)
+
+# Compile source to create the object files
+# use the default actions to compile
+main.o : $(srcdir)/main.m $(srcdir)/MyRectangle.h $(srcdir)/MyRectangle.m
+	$(CC) $(CFLAGS) $(srcdir)/MyRectangle.h $(srcdir)/MyRectangle.m $(srcdir)/main.m
+
+MyRectangle.o : $(srcdir)/MyRectangle.h $(srcdir)/MyRectangle.m 
+	$(CC) $(CFLAGS) $(srcdir)/MyRectangle.h $(srcdir)/MyRectangle.m
+
+# Remove compilation and debugging files
+clean :
+	rm -f core $(PROG) $(OBJS)
+
+
+
+

@@ -1,0 +1,9 @@
+#! /bin/bash
+# to compile on macosx in a single step uncomment the command below.
+#gcc -x objective-c -lobjc -m32 -o fraction src/Fraction.h src/Fraction.m src/main.m
+
+# to compile in two steps for debugging, use the two gcc commands below. The
+# first compiles only producing the .o files (object files). The second
+# command links the resulting object files creating the executable file.
+gcc -x objective-c -g -ggdb -m32 -c src/Fraction.h src/Fraction.m src/main.m
+gcc -g -ggdb main.o Fraction.o -m32 -lobjc -o fraction
